@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, ScrollView, Text, View} from 'react-native';
 import CustomButton from '../components/atoms/CustomButton';
 import {useNavigation} from '@react-navigation/native';
+import {MainNavigatorNavigationProp} from '../navigation/MainNavigator.types';
+import HomeScreenStyles from '../styles/HomeScreen.styles';
 
 const HomeScreen = () => {
   const [disableButton, setDissableButtons] = useState(true);
@@ -9,7 +11,9 @@ const HomeScreen = () => {
     'Welcome! Press me to access all features',
   );
 
-  const navigation = useNavigation();
+  const [appTitle] = useState('My First Ever React Native App');
+
+  const navigation = useNavigation<MainNavigatorNavigationProp>();
 
   const handleWelcomePress = () => {
     Alert.alert(
@@ -20,27 +24,27 @@ const HomeScreen = () => {
   };
 
   const goToDetails = () => {
-    navigation.navigate('Details');
+    navigation.navigate('Details', {myAppTitle: appTitle});
   };
   const goToSettings = () => {
     navigation.navigate('Settings');
   };
 
   return (
-    <View style={styles.container}>
+    <View style={HomeScreenStyles.container}>
       <ScrollView>
         <Image
-          style={styles.homeImage}
+          style={HomeScreenStyles.homeImage}
           resizeMode="contain"
           source={{
             uri: 'https://miro.medium.com/v2/resize:fit:1200/1*kfpwp2whjZZCVo2o9k3HSA.jpeg',
           }}
         />
-        <View style={styles.background}>
-          <Text style={styles.title}>My First Ever React Native App</Text>
+        <View style={HomeScreenStyles.background}>
+          <Text style={HomeScreenStyles.title}>{appTitle}</Text>
           <CustomButton onPress={handleWelcomePress} title={textButton} />
 
-          <View style={styles.routeButtons}>
+          <View style={HomeScreenStyles.routeButtons}>
             <CustomButton
               onPress={goToDetails}
               title="Go to Details Page"
@@ -57,37 +61,5 @@ const HomeScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  homeImage: {
-    width: '100%',
-    height: 300,
-  },
-  title: {
-    fontSize: 30,
-    padding: 10,
-    color: 'white',
-    fontStyle: 'italic',
-  },
-  background: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#67C6E3',
-    width: '100%',
-    height: '100%',
-    minHeight: '65%',
-    minWidth: '100%',
-  },
-  routeButtons: {
-    flex: 1,
-    width: '100%',
-    paddingTop: 20,
-  },
-});
 
 export default HomeScreen;

@@ -1,13 +1,13 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {MainNavigatorAtackParamList} from './MainNaviagtor.types';
-import {StyleSheet} from 'react-native';
+import {MainNavigatorStackParamList} from './MainNavigator.types';
+import {StyleSheet, TextStyle} from 'react-native';
 import DetailsScreen from '../screens/DetailsScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const MainStackNavigator =
-  createNativeStackNavigator<MainNavigatorAtackParamList>();
+  createNativeStackNavigator<MainNavigatorStackParamList>();
 
 const MainNavigator = () => {
   return (
@@ -23,16 +23,16 @@ const MainNavigator = () => {
 
 const styles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: '#5356FF',
-    // tintColor: 'white',
+    backgroundColor: '#176B87',
   },
   headerTitleStyle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    // tintColor: 'white',
   },
-  headerTintColor: 'white',
+  headerTintColor: {
+    color: 'white',
+  } as TextStyle,
 });
 
 export default MainNavigator;
