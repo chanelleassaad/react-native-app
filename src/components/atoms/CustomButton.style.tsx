@@ -5,7 +5,8 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     backgroundColor: '#04364A',
-    margin: 10,
+    marginBottom: 5,
+    marginHorizontal: 5,
   },
   disabledButton: {
     backgroundColor: '#C1C1C1',

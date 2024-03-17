@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {MainNavigatorStackParamList} from './MainNavigator.types';
-import {StyleSheet, TextStyle} from 'react-native';
+import {StyleSheet} from 'react-native';
 import DetailsScreen from '../screens/DetailsScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -30,9 +30,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  headerTintColor: {
-    color: 'white',
-  } as TextStyle,
+  headerTintColor: 'white',
 });
 
 export default MainNavigator;
