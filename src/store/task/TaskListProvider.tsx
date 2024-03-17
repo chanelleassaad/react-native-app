@@ -1,7 +1,14 @@
 import React, {createContext, useContext, useReducer} from 'react';
 import taskReducer from './taskReducer';
+import {TaskInterface} from '../../interfaces/TaskInterface';
+import {TaskAction} from './TaskAction';
 
-const TaskListContext = createContext();
+interface TaskContextType {
+  state: {tasks: TaskInterface[]};
+  dispatch: React.Dispatch<TaskAction>;
+}
+
+const TaskListContext = createContext<TaskContextType | undefined>(undefined);
 
 const initialState = {
   tasks: [],

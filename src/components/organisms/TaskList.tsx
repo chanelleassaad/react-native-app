@@ -1,8 +1,10 @@
-import {View, Text, FlatList, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
+import {View, Text, FlatList} from 'react-native';
 import CustomButton from '../atoms/CustomButton';
 import TextEditor from '../atoms/TextEditor';
-import {useTaskList} from '../../store/TaskListProvider';
+import {useTaskList} from '../../store/task/TaskListProvider';
+import {TaskInterface} from '../../interfaces/TaskInterface';
+import TaskListStyle from './TaskList.style';
 
 const TaskList = () => {
   const {state, dispatch} = useTaskList();
@@ -19,18 +21,18 @@ const TaskList = () => {
     setNewTaskText('');
   };
 
-  const toggleTask = (task: Task) => {
+  const toggleTask = (task: TaskInterface) => {
     dispatch({type: 'TOGGLE_TASK', payload: task});
   };
 
-  const removeTask = (task: Task) => {
+  const removeTask = (task: TaskInterface) => {
     dispatch({type: 'REMOVE_TASK', payload: task});
   };
 
   return (
     <View>
-      <Text>Tasks To Do</Text>
       <TextEditor
+        title={'TO DO'}
         value={newTaskText}
         onChangeText={setNewTaskText}
         placeholder={'Enter task..'}
@@ -40,14 +42,16 @@ const TaskList = () => {
         data={state.tasks}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <View style={styles.taskList}>
+          <View style={TaskListStyle.taskList}>
             <Text
-              style={{
-                textDecorationLine: item.completed ? 'line-through' : 'none',
-              }}>
+              style={
+                item.completed
+                  ? TaskListStyle.completedTask
+                  : TaskListStyle.task
+              }>
               {item.text}
             </Text>
-            <View style={styles.editButtons}>
+            <View style={TaskListStyle.editButtons}>
               <CustomButton
                 title={item.completed ? 'Undo' : 'Done'}
                 onPress={() => toggleTask(item)}
@@ -62,13 +66,3 @@ const TaskList = () => {
 };
 
 export default TaskList;
-
-const styles = StyleSheet.create({
-  taskList: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-  },
-  editButtons: {flexDirection: 'row'},
-});

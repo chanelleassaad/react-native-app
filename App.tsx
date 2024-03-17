@@ -8,13 +8,16 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import MainNavigator from './src/navigation/MainNavigator';
-import {TaskListProvider} from './src/store/TaskListProvider';
+import {TaskListProvider} from './src/store/task/TaskListProvider';
+import {ProfileProvider} from './src/store/profile/ProfileProvider';
 
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <TaskListProvider>
-        <MainNavigator />
+        <ProfileProvider>
+          <MainNavigator />
+        </ProfileProvider>
       </TaskListProvider>
     </NavigationContainer>
   );
