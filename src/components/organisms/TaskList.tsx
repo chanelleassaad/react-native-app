@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import CustomButton from '../atoms/CustomButton';
 import TextEditor from '../atoms/TextEditor';
 import {useTaskList} from '../../store/task/TaskListProvider';
@@ -30,38 +30,36 @@ const TaskList = () => {
   };
 
   return (
-    <View>
-      <TextEditor
-        title={'TO DO'}
-        value={newTaskText}
-        onChangeText={setNewTaskText}
-        placeholder={'Enter task..'}
-      />
-      <CustomButton title="Add Task" onPress={addTask} />
-      <FlatList
-        data={state.tasks}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <View style={TaskListStyle.taskList}>
+    <ScrollView>
+      <View>
+        <TextEditor
+          title={'TO DO'}
+          value={newTaskText}
+          onChangeText={setNewTaskText}
+          placeholder={'Enter task..'}
+        />
+        <CustomButton title="Add Task" onPress={addTask} />
+        {state.tasks.map(task => (
+          <View key={task.id} style={TaskListStyle.taskList}>
             <Text
               style={
-                item.completed
+                task.completed
                   ? TaskListStyle.completedTask
                   : TaskListStyle.task
               }>
-              {item.text}
+              {task.text}
             </Text>
             <View style={TaskListStyle.editButtons}>
               <CustomButton
-                title={item.completed ? 'Undo' : 'Done'}
-                onPress={() => toggleTask(item)}
+                title={task.completed ? 'Undo' : 'Done'}
+                onPress={() => toggleTask(task)}
               />
-              <CustomButton title="Remove" onPress={() => removeTask(item)} />
+              <CustomButton title="Remove" onPress={() => removeTask(task)} />
             </View>
           </View>
-        )}
-      />
-    </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 
