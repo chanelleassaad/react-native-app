@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Alert, Image, ScrollView, Text, View} from 'react-native';
 import CustomButton from '../components/atoms/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import {MainNavigatorNavigationProp} from '../navigation/MainNavigator.types';
 import HomeScreenStyles from '../styles/HomeScreen.styles';
+import {DarkModeContext} from '../store/darkMode/DarkModeContext';
 
 const HomeScreen = () => {
-  const [disableButton, setDissableButtons] = useState(true);
+  const [disableButton, setDisableButtons] = useState(true);
   const [textButton, setTextButton] = useState(
     'Welcome! Press me to access all features',
   );
+  const {isDarkMode} = useContext(DarkModeContext);
 
   const [appTitle] = useState('My First Ever React Native App');
 
@@ -19,7 +21,7 @@ const HomeScreen = () => {
     Alert.alert(
       'Welcome to my app! Now you can navigate through the pages! Hope you enjoy it :) ',
     );
-    setDissableButtons(false);
+    setDisableButtons(false);
     setTextButton('Welcome! :)');
   };
 
@@ -31,7 +33,11 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={HomeScreenStyles.container}>
+    <View
+      style={[
+        HomeScreenStyles.container,
+        isDarkMode && HomeScreenStyles.darkContainer,
+      ]}>
       <ScrollView>
         <Image
           style={HomeScreenStyles.homeImage}
@@ -40,8 +46,18 @@ const HomeScreen = () => {
             uri: 'https://miro.medium.com/v2/resize:fit:1200/1*kfpwp2whjZZCVo2o9k3HSA.jpeg',
           }}
         />
-        <View style={HomeScreenStyles.background}>
-          <Text style={HomeScreenStyles.title}>{appTitle}</Text>
+        <View
+          style={[
+            HomeScreenStyles.background,
+            isDarkMode && HomeScreenStyles.darkBackground,
+          ]}>
+          <Text
+            style={[
+              HomeScreenStyles.title,
+              isDarkMode && HomeScreenStyles.darkTitle,
+            ]}>
+            {appTitle}
+          </Text>
           <CustomButton onPress={handleWelcomePress} title={textButton} />
 
           <View style={HomeScreenStyles.routeButtons}>

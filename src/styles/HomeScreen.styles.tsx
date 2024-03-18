@@ -1,10 +1,15 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../colors';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: colors.lightBlue, // Default background color
+  },
+  darkContainer: {
+    backgroundColor: colors.darkBlue, // Dark mode background color
   },
   homeImage: {
     width: '100%',
@@ -16,14 +21,18 @@ export default StyleSheet.create({
     color: 'white',
     fontStyle: 'italic',
   },
+  darkTitle: {
+    color: colors.lightBlue, // Dark mode text color
+  },
   background: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#176B87',
     width: '100%',
-    height: '100%',
     minHeight: '65%',
     minWidth: '100%',
+  },
+  darkBackground: {
+    backgroundColor: colors.darkBlue, // Dark mode background color for inner content
   },
   routeButtons: {
     flex: 1,

@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, StyleSheet, ScrollView, View} from 'react-native';
+import {Text, ScrollView, View} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {MainNavigatorStackParamList} from '../navigation/MainNavigator.types';
 import TaskList from '../components/organisms/TaskList';
-import ProfileDetails from '../components/organisms/ProfileDetails';
+import DetailsScreenStyle from '../styles/DetailsScreen.style';
 
 const DetailsScreen = () => {
   const {params} =
@@ -12,9 +12,8 @@ const DetailsScreen = () => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View style={DetailsScreenStyle.container}>
         <Text>{myAppTitle}</Text>
-        <ProfileDetails />
         <TaskList />
       </View>
     </ScrollView>
@@ -22,9 +21,3 @@ const DetailsScreen = () => {
 };
 
 export default DetailsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 20,
-  },
-});
